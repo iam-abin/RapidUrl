@@ -5,7 +5,7 @@ const limiter = rateLimit({
 	max: 100, // limit each IP to 100 requests per windowMs
 	message: {
 		code: 429,
-		message: "Too many requests from this IP, please try again after an hour"
+		message: "Too many requests from this IP, please try again after 15 minutes"
 	},
 });
 
