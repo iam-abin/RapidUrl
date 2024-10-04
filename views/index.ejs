@@ -1,50 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>URL Shortener</title>
+        <link
+            href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+            rel="stylesheet"
+        />
+    </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>URL Shortener</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-</head>
+    <body class="bg-yellow-50">
+        <div class="flex flex-col items-center min-h-screen px-8 py-12">
+            <h1 class="text-3xl font-bold underline mb-8">URL Shortener</h1>
+            <form
+                action="/short-url"
+                method="post"
+                class="w-full md:w-3/4 lg:w-2/4 xl:w-1/3 bg-white shadow-md rounded-lg flex items-center"
+            >
+                <input
+                    required
+                    type="text"
+                    placeholder="Enter URL"
+                    name="fullUrl"
+                    id="fullUrl"
+                    class="flex-1 p-4 border border-gray-300 rounded-l-lg focus:outline-none focus:ring focus:border-blue-300"
+                />
+                <button
+                    type="submit"
+                    class="px-6 py-4 bg-blue-500 text-white rounded-r-lg hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
+                >
+                    Shrink
+                </button>
+            </form>
 
-<body class="bg-yellow-50">
-    <div class="flex flex-col items-center min-h-screen px-8 py-12">
-        <h1 class="text-3xl font-bold underline mb-8">URL Shortener</h1>
-        <form action="/short-url" method="post" class="w-full md:w-3/4 lg:w-2/4 xl:w-1/3 bg-white shadow-md rounded-lg flex items-center">
-            <input required type="text" placeholder="Enter URL" name="fullUrl" id="fullUrl" class="flex-1 p-4 border border-gray-300 rounded-l-lg focus:outline-none focus:ring focus:border-blue-300">
-            <button type="submit" class="px-6 py-4 bg-blue-500 text-white rounded-r-lg hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300">Shrink</button>
-        </form>
-
-        <table class="mt-12 w-full md:w-3/4 lg:w-2/4 xl:w-1/3 bg-white shadow-md rounded-lg overflow-hidden">
-            <thead>
-                <tr class="bg-gray-100">
-                    <th class="py-2 px-4 border border-gray-300">Full URL</th>
-                    <th class="py-2 px-4 border border-gray-300">Short URL</th>
-                    <th class="py-2 px-4 border border-gray-300">Clicks</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% urls.forEach(url => { %>
+            <table
+                class="mt-12 w-full md:w-3/4 lg:w-2/4 xl:w-1/3 bg-white shadow-md rounded-lg overflow-hidden"
+            >
+                <thead>
+                    <tr class="bg-gray-100">
+                        <th class="py-2 px-4 border border-gray-300">
+                            Full URL
+                        </th>
+                        <th class="py-2 px-4 border border-gray-300">
+                            Short URL
+                        </th>
+                        <th class="py-2 px-4 border border-gray-300">Clicks</th>
+                        <th class="py-2 px-4 border border-gray-300">Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% urls.forEach(url => { %>
                     <tr class="hover:bg-gray-50">
-                        <td class="py-3 px-4 border border-gray-300 break-words">
-                            <a href="<%= url.fullUrl %>" class="text-blue-500 underline hover:text-blue-700">
+                        <td
+                            class="py-3 px-4 border border-gray-300 break-words"
+                        >
+                            <a
+                                href="<%= url.fullUrl %>"
+                                class="text-blue-500 underline hover:text-blue-700"
+                            >
                                 <%= url.fullUrl %>
                             </a>
                         </td>
                         <td class="py-3 px-4 border border-gray-300">
-                            <a href="<%= url.shortUrl %>" class="text-blue-500 underline hover:text-blue-700">
+                            <a
+                                href="<%= url.shortUrl %>"
+                                class="text-blue-500 underline hover:text-blue-700"
+                            >
                                 <%= url.shortUrl %>
                             </a>
                         </td>
                         <td class="py-3 px-4 border border-gray-300">
                             <%= url.numberOfClicks %>
                         </td>
-                    </tr>
-                <% }) %>
-            </tbody>
-        </table>
-    </div>
-</body>
 
+                        <td class="py-2 px-3 border border-gray-300">
+                            <button
+                                onclick="deleteUrl( '<%= url._id %>')"
+                                class="button bg-red-400  px-3 py-2 rounded-lg"
+                            >
+                                <%= "Delete" %>
+                            </button>
+                        </td>
+                    </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+        <script
+        defer
+        src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"
+        integrity="sha512-DdX/YwF5e41Ok+AI81HI8f5/5UsoxCVT9GKYZRIzpLxb8Twz4ZwPPX+jQMwMhNQ9b5+zDEefc+dcvQoPWGNZ3g=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+        ></script>
+        <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script defer src="js/deleteUrl.js"></script>
+    </body>
 </html>
