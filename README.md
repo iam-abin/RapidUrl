@@ -25,3 +25,9 @@
    ```
    npm run dev
    ```
+
+6. Access the application using
+
+   ```
+   http://localhost:5000
+   ```

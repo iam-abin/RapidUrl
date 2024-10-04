@@ -22,6 +22,10 @@ app.get("/", showHomePage);
 app.post("/short-url", createShortUrl);
 app.get("/:shortUrl", goToShortUrl); // add this at the end of all other routes with get
 
+app.all("*",(req, res)=>{
+	return res.status(404).send({message: "Route not found"})
+})
+
 app.use(errorHandler);
 
 const PORT = process.env.PORT;
